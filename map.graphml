@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml>
+   <graph id="Graph" uidGraph="9" uidEdge="10009">
+      <nodes>
+         <node positionX="126" positionY="80" id="0" mainText="0" upText="" />
+         <node positionX="292" positionY="262" id="2" mainText="2" upText="" />
+         <node positionX="229" positionY="168" id="3" mainText="3" upText="" />
+         <node positionX="350" positionY="175" id="5" mainText="5" upText="" />
+         <node positionX="173" positionY="270" id="6" mainText="6" upText="" />
+         <node positionX="460" positionY="291" id="7" mainText="7" upText="" />
+         <node positionX="361" positionY="62" id="8" mainText="8" upText="" />
+      </nodes>
+      <edges>
+         <edge vertex1="3" vertex2="0" isDirect="false" weight="3" useWeight="true" id="10000" text="" arrayStyleStart="" arrayStyleFinish="" model_width="4" model_type="0" model_curvedValue="0.1" />
+         <edge vertex1="3" vertex2="8" isDirect="false" weight="3" useWeight="true" id="10001" text="" arrayStyleStart="" arrayStyleFinish="" model_width="4" model_type="0" model_curvedValue="0.1" />
+         <edge vertex1="3" vertex2="5" isDirect="true" weight="3" useWeight="true" id="10002" text="" arrayStyleStart="" arrayStyleFinish="" model_width="4" model_type="0" model_curvedValue="0.1" />
+         <edge vertex1="7" vertex2="5" isDirect="true" weight="3" useWeight="true" id="10003" text="" arrayStyleStart="" arrayStyleFinish="" model_width="4" model_type="0" model_curvedValue="0.1" />
+         <edge vertex1="2" vertex2="5" isDirect="false" weight="7" useWeight="true" id="10005" text="" arrayStyleStart="" arrayStyleFinish="" model_width="4" model_type="0" model_curvedValue="0.1" />
+         <edge vertex1="2" vertex2="3" isDirect="false" weight="7" useWeight="true" id="10006" text="" arrayStyleStart="" arrayStyleFinish="" model_width="4" model_type="0" model_curvedValue="0.1" />
+         <edge vertex1="6" vertex2="7" isDirect="false" weight="11" useWeight="true" id="10007" text="" arrayStyleStart="" arrayStyleFinish="" model_width="4" model_type="0" model_curvedValue="0.1" />
+         <edge vertex1="3" vertex2="6" isDirect="false" weight="11" useWeight="true" id="10008" text="" arrayStyleStart="" arrayStyleFinish="" model_width="4" model_type="0" model_curvedValue="0.1" />
+      </edges>
+   </graph>
+</graphml>
