@@ -8,30 +8,54 @@ Created on Mon October 13 2019
 Group Project
 """
 from xml.dom import minidom
-import pandas as pd
+import numpy as np
 
 class Vector:
     def __init__ (self, name):
         self.name = name
-        self.edges = []
-        
+        self.neighbors = {}
+    
+    def __repr__(self):
+        return "Vector " + self.name
+    
+    def __eq__(self, other):
+          return (self.name) == (other)
+    
+    def __hash__(self):
+        return hash(self.name)
+    
 class Map:
     def build_map(self,filename):
         # Reads in the xml file and builds a map. Format we
         # are using is: https://graphonline.ru/en/
         
-        vectors = []
+        #read xml file
         xmldoc = minidom.parse(filename)
-        itemlist = xmldoc.getElementsByTagName('node')
-        edgelist = xmldoc.getElementsByTagName('node')
+        
+        #declare empty nparray
+        self.vectors ={}
+    
+        #parse out vectors, save to dictionary    
+        itemlist = xmldoc.getElementsByTagName('node')    
+        for vec in itemlist:                     
+            self.vectors[vec.attributes['id'].value] = Vector(vec.attributes['id'].value)
 
-        print(itemlist.length)
-        #for i in itemlist:
-         #   print (i.attributes['id'].value)
-          #  vector = Vector(i.attributes['id'].value
-           # vectors.append())
+        # read edges and connect the graph 
+        edgelist = xmldoc.getElementsByTagName('edge')
+        for edge in edgelist:
+            start_vect = self.vectors[edge.attributes['vertex1'].value]
+            end_vect = self.vectors[edge.attributes['vertex2'].value]
+            weight = int(edge.attributes['weight'].value)
+            
+            #adds a tuple, index 0 is the vector object, and index 1 is the weight of that object
+            start_vect.neighbors[end_vect] = (end_vect,weight)
+            
+            #check if directional
+            if edge.attributes['isDirect'].value != "true":
+                end_vect.neighbors[start_vect] = (start_vect,weight)
     
-    
+        print (self.vectors['5'].neighbors)
+
     
     def find_path(self):
         # takes exisiting map and runs Dijkstra's algorithn
