@@ -54,9 +54,6 @@ class Map:
             if edge.attributes['isDirect'].value != "true":
                 end_vect.neighbors[start_vect] = (start_vect,weight)
     
-        print (self.vectors['5'].neighbors)
-
-    
     def find_path(self):
         # takes exisiting map and runs Dijkstra's algorithn
         pass
