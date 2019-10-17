@@ -63,8 +63,13 @@ class Map:
         pass
         
     def print_map(self):
-        # This is optional, we can print the graph first, then show the path we take.
-        pass
+        for vector in self.vectors:
+            print(self.vectors[vector])
+            print("    neighbors: " +str(self.vectors[vector].neighbors))
+      
+           
+            
+        
 
 # Print out the header info
 print("CLASS: Artificial Intelligence, Lewis University")
