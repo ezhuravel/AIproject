@@ -10,12 +10,16 @@ Group Project
 from xml.dom import minidom
 
 class Vector:
-    def __init__ (self, name):
+    def __init__ (self, name, text):
         self.name = name
+        self.text = text
         self.neighbors = {}
     
     def __repr__(self):
-        return "Vector " + self.name
+        if not self.text:
+            return "Vector " + self.name
+        else:
+            return self.text
     
     def __eq__(self, other):
           return (self.name) == (other)
@@ -24,6 +28,9 @@ class Vector:
         return hash(self.name)
     
 class Map:
+    def __init__ (self):
+        self.node_path = []
+        
     def build_map(self,filename):
         # Reads in the xml file and builds a map. Format we
         # are using is: https://graphonline.ru/en/
@@ -36,8 +43,8 @@ class Map:
     
         #parse out vectors, save to dictionary    
         itemlist = xmldoc.getElementsByTagName('node')    
-        for vec in itemlist:                     
-            self.vectors[vec.attributes['id'].value] = Vector(vec.attributes['id'].value)
+        for vec in itemlist:
+            self.vectors[vec.attributes['id'].value] = Vector(vec.attributes['id'].value, vec.attributes['mainText'].value)
 
         # read edges and connect the graph 
         edgelist = xmldoc.getElementsByTagName('edge')
@@ -54,12 +61,18 @@ class Map:
                 end_vect.neighbors[start_vect] = (start_vect,weight)
     
     def find_path(self, start, target):
-        path ={start: (None, 0)}
-        current_node = self.vectors[start]
-        end_node = self.vectors[target]    
-        visited = set()
         
-       
+        if(not start):
+            print ("Start not found")
+            return 
+        
+        if(not start):
+            print ("End not found")
+            return 
+            
+        path ={start: (None, 0)}
+        current_node = self.vectors[start]    
+        visited = set()
         
         while current_node != target:
             visited.add(current_node)
@@ -82,27 +95,37 @@ class Map:
             current_node = min(next_destinations, key=lambda k: next_destinations[k][1])
             # Work back through destinations in shortest path
         
-        node_path = []
+        
         while current_node is not None:
-            node_path.append(current_node)
+            self.node_path.append(current_node)
             next_node = path[current_node][0]
             current_node = next_node
         # Reverse path
-        node_path = node_path[::-1]
+        self.node_path = self.node_path[::-1]
         
-        print(node_path)
+      
 
     
     def print_result(self):
-
-        pass
+        print ("Shortest rout:")
+        print (*self.node_path, sep = " => ")
+                
+        
         
     def print_map(self):
         for vector in self.vectors:
             print(self.vectors[vector])
             print("    neighbors: " +str(self.vectors[vector].neighbors))
-      
-           
+    
+    def getVertex(self, name):
+        
+        if(name in self.vectors.keys()):
+            return self.vectors[name]
+        
+        # check if they gave a name
+        for i in self.vectors.values():
+            if(i.text == name):
+                return self.vectors[i.name]
             
         
 
@@ -114,5 +137,13 @@ print("")
 
 map = Map()
 map.build_map('map.graphml') 
-#map.print_map() # I think this can be optional
-map.find_path('10', '4')
+
+map.print_map() # I think this can be optional
+
+start = map.getVertex(input("Please name of starting point: "))
+end =  map.getVertex(input("Please name of end point: "))
+
+
+
+map.find_path(start, end)
+map.print_result()
